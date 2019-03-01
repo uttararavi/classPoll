@@ -359,30 +359,6 @@ class StudentHome extends Component {
         </div>
       );
     }
-    // return (
-    //   <div
-    //     style={{
-    //       top: "0",
-    //       bottom: "0",
-    //       left: "0",
-    //       right: "0",
-    //       position: "absolute",
-    //       background: "#d6cfce"
-    //     }}
-    //   >
-    //     <div
-    //       style={{
-    //         width: 1300,
-    //         height: 70,
-    //         display: "flex",
-    //         justifyContent: "center"
-    //       }}
-    //     >
-    //       {/* <p>Account</p> */}
-    //       <button onClick={this.logout}> Logout</button>
-    //     </div>
-    //   </div>
-    // );
 
     return (
       <div>
