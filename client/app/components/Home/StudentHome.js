@@ -66,7 +66,7 @@ class StudentHome extends Component {
       const { token } = obj;
 
       //Verify the token
-      fetch("/api/account/verify?token=" + token)
+      fetch("/api/account/studentVerify?token=" + token)
         .then(res => res.json())
         .then(json => {
           if (json.success) {
@@ -139,7 +139,7 @@ class StudentHome extends Component {
 
     // Post request to backend
 
-    fetch("/api/account/signup", {
+    fetch("/api/account/studentSignup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -181,7 +181,7 @@ class StudentHome extends Component {
 
     // Post request to backend
 
-    fetch("/api/account/signin", {
+    fetch("/api/account/studentSignin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -222,7 +222,7 @@ class StudentHome extends Component {
       const { token } = obj;
 
       //Verify the token
-      fetch("/api/account/logout?token=" + token)
+      fetch("/api/account/studentLogout?token=" + token)
         .then(res => res.json())
         .then(json => {
           if (json.success) {
