@@ -1,0 +1,4 @@
+# pack-refs with: peeled fully-peeled 
+0c9849aa8b57f1ce65e0ce0a67579ba4037489a2 refs/remotes/origin/master
+6ac4c9a4ace98a71f8646d4758cd84500a3d8565 refs/remotes/origin/master-w-dynamodb
+47d99c72236008e1de69f1586b642b7042f4fa9b refs/remotes/origin/master-w-redux
