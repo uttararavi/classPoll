@@ -66,7 +66,7 @@ class ProfHome extends Component {
       const { token } = obj;
 
       //Verify the token
-      fetch("/api/account/verify?token=" + token)
+      fetch("/api/account/profVerify?token=" + token)
         .then(res => res.json())
         .then(json => {
           if (json.success) {
@@ -139,7 +139,7 @@ class ProfHome extends Component {
 
     // Post request to backend
 
-    fetch("/api/account/signup", {
+    fetch("/api/account/profSignup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -181,7 +181,7 @@ class ProfHome extends Component {
 
     // Post request to backend
 
-    fetch("/api/account/signin", {
+    fetch("/api/account/profSignin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -222,7 +222,7 @@ class ProfHome extends Component {
       const { token } = obj;
 
       //Verify the token
-      fetch("/api/account/logout?token=" + token)
+      fetch("/api/account/profLogout?token=" + token)
         .then(res => res.json())
         .then(json => {
           if (json.success) {
@@ -359,33 +359,19 @@ class ProfHome extends Component {
         </div>
       );
     }
-    // return (
-    //   <div
-    //     style={{
-    //       top: "0",
-    //       bottom: "0",
-    //       left: "0",
-    //       right: "0",
-    //       position: "absolute",
-    //       background: "#d6cfce"
-    //     }}
-    //   >
-    //     <div
-    //       style={{
-    //         width: 1300,
-    //         height: 70,
-    //         display: "flex",
-    //         justifyContent: "center"
-    //       }}
-    //     >
-    //       {/* <p>Account</p> */}
-    //       <button onClick={this.logout}> Logout</button>
-    //     </div>
-    //   </div>
-    // );
 
     return (
-      <div>
+      <div
+        style={{
+          top: "0",
+          bottom: "0",
+          left: "0",
+          right: "0",
+          position: "absolute",
+          background: "#d6cfce",
+          textAlign: "center"
+        }}
+      >
         {this.renderRedirect()}
         <button onClick={this.setRedirect}>Add Course</button>
         <button onClick={this.logout}> Logout</button>

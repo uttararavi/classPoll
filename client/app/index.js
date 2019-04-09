@@ -26,7 +26,6 @@ render(
         <Route exact path="/profHome" component={ProfHome} />
         <Route path="/helloworld" component={HelloWorld} />
         <Route path="/init" component={StudProfInit} />
-        {/* <Route path="/courseCatalog" component={CourseCatalog} /> */}
         <Route path="/profHome/addCourse" component={AddCourse} />
         <Route component={NotFound} />
       </Switch>
