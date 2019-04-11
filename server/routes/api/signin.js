@@ -423,6 +423,8 @@ module.exports = app => {
     // Get the token
     const { query } = req;
     const { token } = query;
+    // const { token } = req;
+
     // Verify the token is one of a kind
 
     StudentSession.findOneAndUpdate(

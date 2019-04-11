@@ -56,7 +56,7 @@ class StudentHome extends Component {
 
   renderRedirect() {
     if (this.state.redirect) {
-      return <Redirect to="/init" />;
+      return <Redirect to="/studentHome/courseCatalog" />;
     }
   }
 
@@ -205,9 +205,9 @@ class StudentHome extends Component {
             signInEmail: "",
             signInPassword: ""
           });
-          // <Redirect to="/profHome" />;
+          <Redirect to="/studentHome" />;
           console.log("Trying to redirect");
-          // return <Redirect to="/profHome" />;
+          return <Redirect to="/studentHome" />;
         } else {
         }
       });
@@ -315,7 +315,9 @@ class StudentHome extends Component {
               />
               <br />
 
-              <button onClick={this.onSignIn}>Sign In</button>
+              <Link to="/studentHome/courseCatalog">
+                <button onClick={this.onSignIn}>Sign In</button>
+              </Link>
             </div>
             <br />
             <br />

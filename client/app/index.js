@@ -13,7 +13,7 @@ import HelloWorld from "./components/HelloWorld/HelloWorld";
 
 import StudProfInit from "./components/Home/StudProfInit";
 
-// import CourseCatalog from "./components/StudentApp/CourseCatalog";
+import CourseCatalog from "./components/StudentApp/CourseCatalog";
 
 import "./styles/styles.scss";
 import AddCourse from "./components/ProfApp/AddCourse";
@@ -27,6 +27,7 @@ render(
         <Route path="/helloworld" component={HelloWorld} />
         <Route path="/init" component={StudProfInit} />
         <Route path="/profHome/addCourse" component={AddCourse} />
+        <Route path="/studentHome/courseCatalog" component={CourseCatalog} />
         <Route component={NotFound} />
       </Switch>
     </App>

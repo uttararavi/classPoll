@@ -1,5 +1,7 @@
 const Course = require("../../models/Course");
 
+// var url = "mongodb://localhost:27017/class_poll";
+
 module.exports = app => {
   app.post("/api/account/addCourse", (req, res, next) => {
     const { body } = req;
@@ -12,9 +14,7 @@ module.exports = app => {
         message: "Error, Course name can not be blank"
       });
     }
-
-    console.log("Add course here!!");
-
+    // console.log("Add course here!!");
     courseName = courseName.toLowerCase();
 
     Course.find(
