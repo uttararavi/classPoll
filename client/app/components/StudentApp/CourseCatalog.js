@@ -10,6 +10,7 @@ class CourseCatalog extends Component {
       data: null
     };
     this.logout = this.logout.bind(this);
+    this.onEnroll = this.onEnroll.bind(this);
     this.getData();
   }
 
@@ -52,6 +53,31 @@ class CourseCatalog extends Component {
     });
   }
 
+  onEnroll(id) {
+    // const { toRegisterCourseName } = this.state;
+    console.log(id);
+    var toRegisterCourseName = id;
+    console.log(toRegisterCourseName);
+    fetch("/api/account/registerToCourse", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        courseName: toRegisterCourseName
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log("json", json);
+        if (json.success) {
+          this.setState({
+            toRegisterCourseName: ""
+          });
+        } else {
+        }
+      });
+  }
   render() {
     return (
       <div
@@ -66,10 +92,14 @@ class CourseCatalog extends Component {
         }}
       >
         {this.state.data ? (
+          // var tempFunc = this.onEnroll(item.courseName);
           this.state.data.map(item => (
             <div>
               <h3>{item.courseName}</h3>
-              <button>Enroll!</button>
+
+              <button onClick={() => this.onEnroll(item.courseName)}>
+                Enroll!
+              </button>
             </div>
           ))
         ) : (

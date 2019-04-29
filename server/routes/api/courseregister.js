@@ -1,57 +1,9 @@
-// const Course = require("../../models/Course");
-
-// module.exports = app => {
-//   app.get("/api/account/displayCourses", (req, res, next) => {
-//     Course.find({}, (err, sessions) => {
-//       if (err) {
-//         console.log(err);
-//         return res.send({
-//           success: false,
-//           message: "Error: Server error, no courses"
-//         });
-//       } else {
-//         return res.send({
-//           success: true,
-//           message: "Good!"
-//         });
-//       }
-//     });
-//   });
-// };
-
-// var express = require("express");
-// var router = express.Router();
-// var mongo = require("mongodb");
-// var assert = require("assert");
-
-// var url = "mongodb://localhost:27017/class_poll";
-
-// module.exports = app => {
-//   router.get("/api/account/displayCourses", function(req, res, next) {
-//     var resultArray = [];
-//     mongo.connect(url, function(err, db) {
-//       assert.equal(null, err);
-
-//       var cursor = db.collection("courses").find();
-//       cursor.forEach(
-//         function(doc, err) {
-//           assert.equal(null, err);
-//           resultArray.push(doc);
-//         },
-//         function() {
-//           db.close();
-//           res.render("/studentHome/courseCatalog", { items: resultArray });
-//         }
-//       );
-//     });
-//   });
-// };
-// import express from "express";
 const express = require("express");
 // const app = express();
 
 const Course = require("../../models/Course");
-
+const StudentSession = require("../../models/StudentSession");
+const Student = require("../../models/Student");
 module.exports = app => {
   app.get("/api/account/displayCourses", (req, res) => {
     Course.find(function(err, courses) {
@@ -61,5 +13,45 @@ module.exports = app => {
         return res.json(courses);
       }
     });
+  });
+
+  app.post("/api/account/registerToCourse", (req, res) => {
+    const { body } = req;
+    let { courseName } = body;
+    console.log("course Name");
+    console.log(courseName);
+
+    if (!courseName) {
+      return res.send({
+        success: false,
+        message: "Error, course name can not be blank"
+      });
+    }
+
+    courseName = courseName.toLowerCase();
+
+    Course.find(
+      {
+        courseName: courseName
+      },
+      (err, courses) => {
+        if (err) {
+          return res.send({
+            success: false,
+            message: "Error: Server error"
+          });
+        } else if (courses.length > 0) {
+          return res.send({
+            success: false,
+            message: "Course duplicates"
+          });
+        }
+
+        StudentSession.find({
+          isDeleted: false
+        });
+      }
+    );
+    console.log("!!!!!!!!!!!!!!!!!");
   });
 };

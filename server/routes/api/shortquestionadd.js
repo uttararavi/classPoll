@@ -1,13 +1,13 @@
 const ShortQuestion = require("../../models/ShortQuestion");
 const ProfSession = require("../../models/ProfSession");
 const Prof = require("../../models/Prof");
-
+const Course = require("../../models/Course");
 // var url = "mongodb://localhost:27017/class_poll";
 
 module.exports = app => {
   app.post("/api/account/addShortQuestion", (req, res, next) => {
     const { body } = req;
-    let { shortQuestionName } = body;
+    let { shortQuestionName, courseName } = body;
 
     if (!shortQuestionName) {
       return res.send({
@@ -15,20 +15,17 @@ module.exports = app => {
         message: "Error, question can not be blank"
       });
     }
+    if (!courseName) {
+      return res.send({
+        success: false,
+        message: "Error, course name can not be blank"
+      });
+    }
     // console.log("Add course here!!");
     shortQuestionName = shortQuestionName.toLowerCase();
-
+    courseName = courseName.toLowerCase();
     var tempId;
 
-    // ProfSession.find(
-    //   {
-    //     isDeleted: false
-    //   },
-    //   (err, profsessions) => {
-
-    //   }
-
-    // )
     ShortQuestion.find(
       {
         shortQuestionName: shortQuestionName
@@ -40,10 +37,11 @@ module.exports = app => {
             message: "Error: Server error"
           });
         } else if (previousShortQuestions.length > 0) {
-          return res.send({
-            success: false,
-            message: "Question already exists."
-          });
+          // return res.send({
+          //   success: false,
+          //   message: "Question already exists."
+          // });
+          // don't do anything, repeated qs are fine
         }
 
         // Save new ShortQuestion
@@ -56,6 +54,30 @@ module.exports = app => {
               message: "Error: Server error"
             });
           }
+
+          Course.findOneAndUpdate(
+            {
+              courseName: courseName
+            },
+            {
+              $set: { shortQS: newShortQuestion }
+            },
+            null,
+            (err, sessions) => {
+              if (err) {
+                console.log(err);
+                return res.send({
+                  success: false,
+                  message: "Error: Server error"
+                });
+              }
+
+              return res.send({
+                success: true,
+                message: "Good!"
+              });
+            }
+          );
 
           return res.send({
             success: true,

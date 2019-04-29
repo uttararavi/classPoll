@@ -41,7 +41,7 @@ const CourseSchema = new mongoose.Schema({
   },
   profIC: ProfSchema,
 
-  shortQS: [ShortQuestionSchema]
+  shortQS: ShortQuestionSchema
 });
 
 module.exports = mongoose.model("Course", CourseSchema);

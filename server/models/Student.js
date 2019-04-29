@@ -1,5 +1,50 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
+const ProfSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    default: ""
+  },
+
+  lastName: {
+    type: String,
+    default: ""
+  },
+
+  email: {
+    type: String,
+    default: ""
+  },
+
+  password: {
+    type: String,
+    default: ""
+  },
+
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const ShortQuestionSchema = new mongoose.Schema({
+  shortQuestionName: {
+    type: String,
+    default: ""
+  }
+});
+
+const CourseSchema = new mongoose.Schema({
+  courseName: {
+    type: String,
+    default: ""
+  },
+  profIC: ProfSchema,
+
+  shortQS: ShortQuestionSchema
+});
+
 const StudentSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -24,6 +69,11 @@ const StudentSchema = new mongoose.Schema({
   isDeleted: {
     type: Boolean,
     default: false
+  },
+
+  courses: {
+    type: [CourseSchema],
+    default: null
   }
 });
 
