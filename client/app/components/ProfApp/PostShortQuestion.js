@@ -1,57 +1,44 @@
 import React, { Component } from "react";
 import "whatwg-fetch";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { Redirect } from "react-router";
+// import { Redirect } from "react-router";
 
 import { getFromStorage, setInStorage } from "../../utils/storage";
 
-class AddCourse extends Component {
+class PostShortQuestion extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      toAddCourseName: "",
-      addCourseError: "",
-      redirect: false
+      toPostShortQuestion: "",
+      addShortQuestionError: ""
     };
-
-    this.onTextboxChangeCourseName = this.onTextboxChangeCourseName.bind(this);
-    this.onAddCourse = this.onAddCourse.bind(this);
+    this.onTextboxChangePostShortQuestion = this.onTextboxChangePostShortQuestion.bind(
+      this
+    );
     this.logout = this.logout.bind(this);
-    this.setRedirect = this.setRedirect.bind(this);
-    this.renderRedirect = this.renderRedirect.bind(this);
+    this.onPostQuestion = this.onPostQuestion.bind(this);
   }
 
-  onTextboxChangeCourseName(event) {
+  onTextboxChangePostShortQuestion(event) {
     this.setState({
-      toAddCourseName: event.target.value
+      toPostShortQuestion: event.target.value
     });
   }
 
-  setRedirect() {
-    this.setState({
-      redirect: true
-    });
-  }
-
-  renderRedirect() {
-    if (this.state.redirect) {
-      return <Redirect to="/profHome/addCourse/temp" />;
-    }
-  }
-
-  onAddCourse() {
-    const { toAddCourseName } = this.state;
+  onPostQuestion() {
+    // add the question in the database
+    console.log("Tried adding a question!");
+    const { toPostShortQuestion } = this.state;
 
     // post request to backend
-
-    fetch("/api/account/addCourse", {
+    fetch("/api/account/addShortQuestion", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        courseName: toAddCourseName
+        shortQuestionName: toPostShortQuestion
       })
     })
       .then(res => res.json())
@@ -59,12 +46,12 @@ class AddCourse extends Component {
         console.log("json", json);
         if (json.success) {
           this.setState({
-            addCourseError: json.message,
+            addShortQuestionError: json.message,
             isLoading: false,
             /*This is clearing the textbox, 
             but it isn't neccesary, 
             if you're redirectign to a diff page*/
-            toAddCourseName: ""
+            toPostShortQuestion: ""
           });
         } else {
         }
@@ -99,12 +86,10 @@ class AddCourse extends Component {
         isLoading: false
       });
     }
-
-    // this.setRedirect;
   }
 
   render() {
-    const { toAddCourseName, addCourseError } = this.state;
+    const { toPostShortQuestion, addShortQuestionError } = this.state;
     return (
       <div
         style={{
@@ -117,27 +102,27 @@ class AddCourse extends Component {
           textAlign: "center"
         }}
       >
-        <input
+        <textarea
+          style={{ width: 300, height: 80 }}
+          multiline="true"
           type="text"
-          placeholder="Course Name"
-          value={toAddCourseName}
-          onChange={this.onTextboxChangeCourseName}
+          placeholder="Short Question"
+          value={toPostShortQuestion}
+          onChange={this.onTextboxChangePostShortQuestion}
         />
-        <br />
-        <button onClick={this.onAddCourse}>Add Course</button>
+        <button onClick={this.onPostQuestion}>Post</button>
         <Link to="/profHome">
           <button onClick={this.logout}>Home</button>
         </Link>
         <Link to="/init">
-          <button onClick={this.logout}> Logout</button>
+          <button onClick={this.logout}>Logout</button>
         </Link>
-
-        {/* <button onClick={this.setRedirect}> Redirect</button> */}
-
-        {addCourseError ? <p>{addCourseError}</p> : null}
+        {addShortQuestionError ? <p>{addShortQuestionError}</p> : null}
+        {/* {(addShortQuestionError = "")} */}
+        <br />
       </div>
     );
   }
 }
 
-export default AddCourse;
+export default PostShortQuestion;

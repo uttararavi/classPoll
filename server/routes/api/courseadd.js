@@ -1,4 +1,6 @@
 const Course = require("../../models/Course");
+const ProfSession = require("../../models/ProfSession");
+const Prof = require("../../models/Prof");
 
 // var url = "mongodb://localhost:27017/class_poll";
 
@@ -17,6 +19,25 @@ module.exports = app => {
     // console.log("Add course here!!");
     courseName = courseName.toLowerCase();
 
+    var tempId;
+    ProfSession.find(
+      {
+        isDeleted: false
+      },
+      (err, profsessions) => {
+        if (err) {
+        }
+
+        if (profsessions.length != 1) {
+          console.log("Multiple logins");
+        }
+
+        const profsession = profsessions[0];
+        tempId = profsession.profId;
+      }
+    );
+
+    console.log("profId : ", profId);
     Course.find(
       {
         courseName: courseName

@@ -374,6 +374,10 @@ class ProfHome extends Component {
       >
         {this.renderRedirect()}
         <button onClick={this.setRedirect}>Add Course</button>
+        <button>My Courses</button>
+        <Link to="/profHome/poll">
+          <button>Create a Poll</button>
+        </Link>
         <button onClick={this.logout}> Logout</button>
       </div>
     );

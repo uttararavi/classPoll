@@ -17,7 +17,9 @@ import CourseCatalog from "./components/StudentApp/CourseCatalog";
 
 import "./styles/styles.scss";
 import AddCourse from "./components/ProfApp/AddCourse";
-
+import PostShortQuestion from "./components/ProfApp/PostShortQuestion";
+import Poll from "./components/ProfApp/Poll";
+import MainMenu from "./components/ProfApp/MainMenu";
 render(
   <Router>
     <App>
@@ -27,7 +29,13 @@ render(
         <Route path="/helloworld" component={HelloWorld} />
         <Route path="/init" component={StudProfInit} />
         <Route path="/profHome/addCourse" component={AddCourse} />
+        <Route path="/profHome/mainMenu" component={MainMenu} />
         <Route path="/studentHome/courseCatalog" component={CourseCatalog} />
+        <Route
+          path="/profHome/postShortQuestion"
+          component={PostShortQuestion}
+        />
+        <Route path="/profHome/poll" component={Poll} />
         <Route component={NotFound} />
       </Switch>
     </App>
