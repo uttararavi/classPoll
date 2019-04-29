@@ -4,6 +4,7 @@ const express = require("express");
 const Course = require("../../models/Course");
 const StudentSession = require("../../models/StudentSession");
 const Student = require("../../models/Student");
+
 module.exports = app => {
   app.get("/api/account/displayCourses", (req, res) => {
     Course.find(function(err, courses) {
@@ -29,7 +30,7 @@ module.exports = app => {
     }
 
     courseName = courseName.toLowerCase();
-
+    var tempId;
     Course.find(
       {
         courseName: courseName
@@ -41,15 +42,54 @@ module.exports = app => {
             message: "Error: Server error"
           });
         } else if (courses.length > 0) {
-          return res.send({
-            success: false,
-            message: "Course duplicates"
-          });
+          // return res.send({
+          //   success: false,
+          //   message: "Course duplicates"
+          // });
         }
 
-        StudentSession.find({
-          isDeleted: false
-        });
+        const course = courses[0];
+        StudentSession.find(
+          {
+            isDeleted: false
+          },
+          (err, studentsessions) => {
+            if (err) {
+            }
+
+            if (studentsessions.length != 1) {
+              console.log("Multiple logins");
+            }
+
+            const studentsession = studentsessions[0];
+            tempId = studentsession.studentId;
+            console.log("studentId : ", tempId);
+
+            Student.findOneAndUpdate(
+              {
+                _id: tempId
+              },
+              {
+                $push: { courses: course }
+              },
+              null,
+              (err, sessions) => {
+                if (err) {
+                  console.log(err);
+                  return res.send({
+                    success: false,
+                    message: "Error: Server error"
+                  });
+                }
+
+                return res.send({
+                  success: true,
+                  message: "Good!"
+                });
+              }
+            );
+          }
+        );
       }
     );
     console.log("!!!!!!!!!!!!!!!!!");

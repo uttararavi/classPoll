@@ -60,7 +60,8 @@ module.exports = app => {
               courseName: courseName
             },
             {
-              $set: { shortQS: newShortQuestion }
+              // $set: { shortQS: newShortQuestion }
+              $push: { shortQS: newShortQuestion }
             },
             null,
             (err, sessions) => {
