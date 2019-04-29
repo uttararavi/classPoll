@@ -1,4 +1,6 @@
 const ShortQuestion = require("../../models/ShortQuestion");
+const ProfSession = require("../../models/ProfSession");
+const Prof = require("../../models/Prof");
 
 // var url = "mongodb://localhost:27017/class_poll";
 
@@ -16,6 +18,17 @@ module.exports = app => {
     // console.log("Add course here!!");
     shortQuestionName = shortQuestionName.toLowerCase();
 
+    var tempId;
+
+    // ProfSession.find(
+    //   {
+    //     isDeleted: false
+    //   },
+    //   (err, profsessions) => {
+
+    //   }
+
+    // )
     ShortQuestion.find(
       {
         shortQuestionName: shortQuestionName

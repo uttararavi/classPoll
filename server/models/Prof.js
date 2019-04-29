@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
 const ProfSchema = new mongoose.Schema({
   firstName: {
     type: String,

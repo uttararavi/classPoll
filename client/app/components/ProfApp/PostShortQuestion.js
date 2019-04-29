@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "whatwg-fetch";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 // import { Redirect } from "react-router";
+import Dropdown from "react-dropdown";
 
 import { getFromStorage, setInStorage } from "../../utils/storage";
 
@@ -11,13 +12,15 @@ class PostShortQuestion extends Component {
 
     this.state = {
       toPostShortQuestion: "",
-      addShortQuestionError: ""
+      addShortQuestionError: "",
+      data: null
     };
     this.onTextboxChangePostShortQuestion = this.onTextboxChangePostShortQuestion.bind(
       this
     );
     this.logout = this.logout.bind(this);
     this.onPostQuestion = this.onPostQuestion.bind(this);
+    this.getData();
   }
 
   onTextboxChangePostShortQuestion(event) {
@@ -88,8 +91,22 @@ class PostShortQuestion extends Component {
     }
   }
 
+  getData() {
+    let data = fetch("/api/account/displayCourses").then(res => {
+      //   console.log(res);
+      res.json().then(res => {
+        // console.log(res);
+        this.setState({ data: res });
+      });
+    });
+  }
+
   render() {
-    const { toPostShortQuestion, addShortQuestionError } = this.state;
+    const {
+      toPostShortQuestion,
+      addShortQuestionError,
+      defaultOption
+    } = this.state;
     return (
       <div
         style={{
@@ -110,6 +127,24 @@ class PostShortQuestion extends Component {
           value={toPostShortQuestion}
           onChange={this.onTextboxChangePostShortQuestion}
         />
+        <button className="btn btn" />
+        {/* {this.state.data ? (
+          this.state.data.map(item => (
+            <div>
+              <h3>{item.courseName}</h3>
+              <button>Enroll!</button>
+            </div>
+          ))
+        ) : (
+          <h3>Wait... data is being fetched</h3>
+        )} */}
+
+        <Dropdown
+          options={this.state.data}
+          value={defaultOption}
+          placeholder="Select an option"
+        />
+
         <button onClick={this.onPostQuestion}>Post</button>
         <Link to="/profHome">
           <button onClick={this.logout}>Home</button>

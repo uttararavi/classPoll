@@ -2,8 +2,6 @@ const Course = require("../../models/Course");
 const ProfSession = require("../../models/ProfSession");
 const Prof = require("../../models/Prof");
 
-// var url = "mongodb://localhost:27017/class_poll";
-
 module.exports = app => {
   app.post("/api/account/addCourse", (req, res, next) => {
     const { body } = req;
@@ -34,43 +32,51 @@ module.exports = app => {
 
         const profsession = profsessions[0];
         tempId = profsession.profId;
-      }
-    );
+        console.log("profId : ", tempId);
 
-    console.log("profId : ", profId);
-    Course.find(
-      {
-        courseName: courseName
-      },
-      (err, previousCourses) => {
-        if (err) {
-          return res.send({
-            success: false,
-            message: "Error: Server error"
-          });
-        } else if (previousCourses.length > 0) {
-          return res.send({
-            success: false,
-            message: "Error: Server error"
-          });
-        }
+        Prof.findById(tempId)
+          .exec()
+          .then(prof => {
+            // console.log(prof);
 
-        // Save new course
-        const newCourse = new Course();
-        newCourse.courseName = courseName;
-        newCourse.save((err, course) => {
-          if (err) {
-            return res.send({
-              success: false,
-              message: "Error: Server error"
-            });
-          }
+            Course.find(
+              {
+                courseName: courseName
+              },
+              (err, previousCourses) => {
+                if (err) {
+                  return res.send({
+                    success: false,
+                    message: "Error: Server error"
+                  });
+                } else if (previousCourses.length > 0) {
+                  return res.send({
+                    success: false,
+                    message: "Error: Server error"
+                  });
+                }
 
-          return res.send({
-            success: true,
-            message: "Course added!"
+                // Save new course
+                const newCourse = new Course();
+                newCourse.courseName = courseName;
+                newCourse.profIC = prof;
+                console.log("newCourse.profIC", newCourse.profIC);
+                newCourse.save((err, course) => {
+                  if (err) {
+                    return res.send({
+                      success: false,
+                      message: "Error: Server error"
+                    });
+                  }
+
+                  return res.send({
+                    success: true,
+                    message: "Course added!"
+                  });
+                });
+              }
+            );
           });
-        });
       }
     );
   });

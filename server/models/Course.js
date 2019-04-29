@@ -1,15 +1,47 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 // var ProfSchema = require("mongoose").model("Prof").schema;
+const ProfSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    default: ""
+  },
+
+  lastName: {
+    type: String,
+    default: ""
+  },
+
+  email: {
+    type: String,
+    default: ""
+  },
+
+  password: {
+    type: String,
+    default: ""
+  },
+
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const ShortQuestionSchema = new mongoose.Schema({
+  shortQuestionName: {
+    type: String,
+    default: ""
+  }
+});
+
 const CourseSchema = new mongoose.Schema({
   courseName: {
     type: String,
     default: ""
-  }
+  },
+  profIC: ProfSchema,
 
-  // profIC: {
-  //   type: ProfSchema
-  // }
+  shortQS: [ShortQuestionSchema]
 });
 
 module.exports = mongoose.model("Course", CourseSchema);
