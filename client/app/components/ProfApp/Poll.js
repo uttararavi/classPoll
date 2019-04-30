@@ -80,7 +80,7 @@ class Poll extends Component {
           <button onClick={this.setRedirect}>Short question</button>
         </div>
         <Link to="/profHome">
-          <button onClick={this.logout}>Home</button>
+          <button>Home</button>
         </Link>
         <Link to="/init">
           <button onClick={this.logout}> Logout</button>

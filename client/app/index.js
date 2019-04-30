@@ -19,7 +19,6 @@ import "./styles/styles.scss";
 import AddCourse from "./components/ProfApp/AddCourse";
 import PostShortQuestion from "./components/ProfApp/PostShortQuestion";
 import Poll from "./components/ProfApp/Poll";
-import MainMenu from "./components/ProfApp/MainMenu";
 render(
   <Router>
     <App>

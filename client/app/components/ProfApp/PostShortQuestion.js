@@ -134,7 +134,7 @@ class PostShortQuestion extends Component {
 
         <button onClick={this.onPostQuestion}>Post</button>
         <Link to="/profHome">
-          <button onClick={this.logout}>Home</button>
+          <button>Home</button>
         </Link>
         <Link to="/init">
           <button onClick={this.logout}>Logout</button>

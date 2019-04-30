@@ -126,7 +126,7 @@ class AddCourse extends Component {
         <br />
         <button onClick={this.onAddCourse}>Add Course</button>
         <Link to="/profHome">
-          <button onClick={this.logout}>Home</button>
+          <button>Home</button>
         </Link>
         <Link to="/init">
           <button onClick={this.logout}> Logout</button>

@@ -378,7 +378,9 @@ class ProfHome extends Component {
         <Link to="/profHome/poll">
           <button>Create a Poll</button>
         </Link>
-        <button onClick={this.logout}> Logout</button>
+        <Link to="/init">
+          <button onClick={this.logout}> Logout</button>
+        </Link>
       </div>
     );
   }
