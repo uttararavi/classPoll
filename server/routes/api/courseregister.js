@@ -94,4 +94,14 @@ module.exports = app => {
     );
     console.log("!!!!!!!!!!!!!!!!!");
   });
+
+  app.get("/api/account/displayMyCourses", (req, res) => {
+    Course.find(function(err, courses) {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.json(courses);
+      }
+    });
+  });
 };

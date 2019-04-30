@@ -363,9 +363,22 @@ class StudentHome extends Component {
     }
 
     return (
-      <div>
+      <div
+        style={{
+          top: "0",
+          bottom: "0",
+          left: "0",
+          right: "0",
+          position: "absolute",
+          background: "#d6cfce",
+          textAlign: "center"
+        }}
+      >
         {this.renderRedirect()}
         <button onClick={this.setRedirect}>Course Catalog</button>
+        <Link to="/studentHome/myCourses">
+          <button>My Courses</button>
+        </Link>
         <button onClick={this.logout}> Logout</button>
       </div>
     );
